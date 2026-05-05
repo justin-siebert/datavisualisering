@@ -1,74 +1,65 @@
-const hSvg = window.innerHeight, wSvg = window.innerWidth;
+const ringSelectionHeight = 500, ringSelectionWidth = 800;
+const rshPadding = 50, rswPadding = 80;
 
-const ringRadius = 75;
-const ringSpacing = 100;
+const contentWidth = ringSelectionWidth - rswPadding * 2;
+const colWidth = contentWidth / 3;
+const r = colWidth * 0.4;
 
-const olympics = [
-    { "continent": "Europe", "color": "blue", "row": "top" },
-    { "continent": "Asia", "color": "yellow", "row": "bottom" },
-    { "continent": "Afrika", "color": "black", "row": "top" },
-    { "continent": "Oceania", "color": "green", "row": "bottom"},
-    { "continent": "America", "color": "red", "row": "top"}
+const ringsPostion = [
+  // top
+  { x: rswPadding + colWidth * 0.5, y: rshPadding + 100, color: "blue" },
+  { x: rswPadding + colWidth * 1.5, y: rshPadding + 100, color: "black" },
+  { x: rswPadding + colWidth * 2.5, y: rshPadding + 100, color: "red" },
+
+  // bottom
+  { x: rswPadding + colWidth * 1, y: rshPadding + 200, color: "yellow" },
+  { x: rswPadding + colWidth * 2, y: rshPadding + 200, color: "green" },
 ];
 
-const svg = d3.select("svg")
-    .attr("height", hSvg)
-    .attr("width", wSvg)
-    .style("display", "block")
+const ringSelection = d3.select("#ringSelection")
+    .attr("height", ringSelectionHeight)
+    .attr("width", ringSelectionWidth)
+    .style("border", "1px solid black")
 ;
 
-const mainGroup = svg.append("g")
-    .classed("mainG", true)
-    .attr("transform", `translate(${wSvg / 2 - (ringSpacing * 2)}, ${hSvg / 2 - 25})`);
+const ringGroup = ringSelection.append("g")
+    .classed("ringGroup", true)
 ;
 
-const circleGroup = mainGroup.append("g")
-    .classed("circleGroup", true)
+const textGroupRings = ringSelection.append("g")
+    .classed("textGroupRings", true)
 ;
 
-const textGroup = mainGroup.append("g")
-    .classed("textGroup", true)
-;
+function olympicRings () {
+    ringGroup.selectAll("*").transition().duration(300).attr("r", 0).remove()
 
-function createIntro (){
-
-    circleGroup.selectAll("circle")
-        .data(olympics)
+    const rings = ringGroup.selectAll("circle")
+        .data(ringsPostion)
         .enter()
         .append("circle")
-        .attr("cx", (d, i) => i * ringSpacing)
-        .attr("cy", d => d.row === "top" ? 0 : 50) 
+        .attr("cy", d => d.y)
+        .attr("cx", d => d.x)
         .attr("r", 0)
-
-        .attr("opacity", 0)
-        .attr("fill", "none")
-        .attr("stroke", d => d.color)
-        .attr("stroke-width", 8)
-
-        .transition()             
-        .duration(2000)
-        .delay((d, i) => i * 300)
-        .ease(d3.easeBackOut)
-        .attr("r", ringRadius)
-        .attr("opacity", 1)
+        .attr("fill", "transparent")
+        .attr("stroke", "beige")
+        .attr("stroke-width", 5)
+        //.on("click") Glöm inte ändra den
     ;
 
-    textGroup.selectAll("text")
-        .data(olympics, d => d.continent)
+    const ringsTransition = rings.transition().duration(500).attr("r", r);
+
+    const disciplinesText = textGroupRings.selectAll("text")
+        .data(ringsPostion)
         .enter()
         .append("text")
-        .attr("x", (d, i) => i * ringSpacing)
-        .attr("y", d => d.row === "top" ? 0 : 50)
+        .attr("y", d => d.y)
+        .attr("x", d => d.x)
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
-        .attr("font-family", "sans-serif")
-        .attr("opacity", 0)
-        .text(d => d.continent)
-        .transition()
-        .delay(1500)
-        .duration(1000)
-        .attr("opacity", 1)
+        .text((d, i) => disciplines[i].name)
     ;
+
+
 }
 
-createIntro();
+olympicRings()
