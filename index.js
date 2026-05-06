@@ -1,26 +1,14 @@
-function getCompDaysBySeason(season) {
-    return seasons.filter(year => year.year == season)[0].competitionDays
-}
+
 console.log(getCompDaysBySeason(0))
 
 function getEventsByParticipantIdAndSeason(participantId, year) {
     let events = [];
-<<<<<<< Updated upstream
-    for (let season of seasons){
-        if(season.year === year){
-            for(let day of season.competitionDays){
-                for (let event of day.events){
-                    for(let result of event.scores){
-                        if(result.participantId === participantId){
-=======
     for (let season of seasons) {
         if (season.year === year) {
-            console.log("inne")
             for (let day of season.competitionDays) {
                 for (let event of day.events) {
                     for (let result of event.scores) {
                         if (result.participantId === participantId) {
->>>>>>> Stashed changes
                             events.push(event)
                         }
                     }
@@ -34,7 +22,7 @@ function getEventsByParticipantIdAndSeason(participantId, year) {
 
 // Hämtar lista på alla tillfällen som disciplin x kört i season y.
 function getDisciplineByIdAndSeason(id, season) {
-    const currSeason = seasons.find(s => s === season);
+    const currSeason = getSeasonByYear(season);
 
     let disciplines = [];
 
@@ -51,51 +39,67 @@ function getDisciplineByIdAndSeason(id, season) {
     return disciplines;
 }
 
-console.log(getDisciplineByIdAndSeason(2, 0))
 
-
-
-let totalScore = 0;
-
-const players = getPlayersWithTrainer(5, 0);
-
-// for (p of players) {
-//     totalScore += getTotalScore(p);
-// }
-
-function getPlayersWithTrainer(id, season) {
-    // let players = [];
-    const currSeason = seasons.find(s => s.year === season);
-
-    // participantId & trainerId
-
-    let trainers = currSeason.trainers.filter(t => t.trainerId === id);
-    console.log(trainers);
-
-    let players = [];
-
-    for (let t of trainers) {
-        console.log(t);
-        console.log(t.participantId);
-
-
-        // for(let t of trainers)
-        let player = participants.find(p => {
-
-            return p.id === t.participantId
-
-        });
-        if (player) {
-            players.push(player);
-
-        }
-    }
-    console.log(players);
-
-
-    return players;
-
+for (let i = 0; i < seasons.length; i++) {
+    console.log("total:", getScoreOfTrainerBySeason(5, i));
 }
 
 
 
+// TOTAL SCORE FUNCTION
+function getScoreOfTrainerBySeason(trainerId, season) {
+    let totalScore = 0;
+    const players = getPlayersWithTrainer(trainerId, season);
+
+    console.log(`Players with trainer ${trainerId}:`, players);
+
+    // Går igenom varje player som har trainern
+    for (let p of players) {
+        console.log(p);
+        totalScore += getTotalScore(p, season)
+    }
+    console.log(totalScore)
+    // Summa adderad
+    return totalScore;
+}
+
+function getTotalScore(player, season) {
+    let allScores = 0;
+
+    for (let day of getCompDaysBySeason(season)) {
+        for (let event of day.events) {
+            const targetScore = event.scores.find(s => s.participantId === player.id);
+            if (targetScore) allScores += targetScore.score;
+        }
+    }
+    console.log("Player:", player, "Score:", allScores);
+
+    return allScores;
+}
+
+
+
+function getPlayersWithTrainer(id, season) {
+    const currSeason = getSeasonByYear(season);
+
+    let trainers = currSeason.trainers.filter(t => t.trainerId === id);
+    let players = [];
+
+    for (let t of trainers) {
+        let player = participants.find(p => p.id === t.participantId);
+        players.push(player);
+    }
+    return players;
+}
+
+
+// Hämtar relevant competitionDays baserat på år.
+function getCompDaysBySeason(season) {
+    return seasons.filter(year => year.year == season)[0].competitionDays
+}
+
+
+// Hämtar season baserat på år (0)
+function getSeasonByYear(year) {
+    return seasons.find(s => s.year === year);
+}
