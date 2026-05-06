@@ -10,6 +10,7 @@ const svg = d3.select("svg")
 let hightesScoreSeason = 0;
 
 
+
 const xScale = d3.scaleBand()
     .domain([trainers.map((t) => t.name)])
     .range([wPadding, svgW - wPadding])
