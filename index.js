@@ -1,7 +1,6 @@
-function getCompDaysBySeason (season){
+function getCompDaysBySeason(season) {
     return seasons.filter(year => year.year == season)[0].competitionDays
 }
-
 console.log(getCompDaysBySeason(0))
 
 function getEventsByParticipantIdAndSeason(participantId, year){
@@ -23,5 +22,28 @@ function getEventsByParticipantIdAndSeason(participantId, year){
     return events
 }
 
-console.log(getEventsByParticipantIdAndSeason(25, 0))
+
+// Hämtar lista på alla tillfällen som disciplin x kört i season y.
+function getDisciplineByIdAndSeason(id, season) {
+    const currSeason = seasons.find(s => s === season);
+
+    let disciplines = [];
+
+    const events = getCompDaysBySeason(season)
+        .map(d => d.events)
+        .filter(e => {
+            for (let ev of e) {
+                if (ev.disciplineId === id) {
+                    disciplines.push(ev);
+                    return true;
+                }
+            }
+        });
+    return disciplines;
+}
+
+console.log(getDisciplineByIdAndSeason(2, 0))
+
+
+
 
