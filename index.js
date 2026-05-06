@@ -8,7 +8,6 @@ function getEventsByParticipantIdAndSeason(participantId, year){
     let events = [];
     for (let season of seasons){
         if(season.year === year){
-            console.log("inne")
             for(let day of season.competitionDays){
                 for (let event of day.events){
                     for(let result of event.scores){
