@@ -3,14 +3,24 @@ function getCompDaysBySeason(season) {
 }
 console.log(getCompDaysBySeason(0))
 
-function getEventsByParticipantIdAndSeason(participantId, year){
+function getEventsByParticipantIdAndSeason(participantId, year) {
     let events = [];
+<<<<<<< Updated upstream
     for (let season of seasons){
         if(season.year === year){
             for(let day of season.competitionDays){
                 for (let event of day.events){
                     for(let result of event.scores){
                         if(result.participantId === participantId){
+=======
+    for (let season of seasons) {
+        if (season.year === year) {
+            console.log("inne")
+            for (let day of season.competitionDays) {
+                for (let event of day.events) {
+                    for (let result of event.scores) {
+                        if (result.participantId === participantId) {
+>>>>>>> Stashed changes
                             events.push(event)
                         }
                     }
@@ -43,6 +53,49 @@ function getDisciplineByIdAndSeason(id, season) {
 
 console.log(getDisciplineByIdAndSeason(2, 0))
 
+
+
+let totalScore = 0;
+
+const players = getPlayersWithTrainer(5, 0);
+
+// for (p of players) {
+//     totalScore += getTotalScore(p);
+// }
+
+function getPlayersWithTrainer(id, season) {
+    // let players = [];
+    const currSeason = seasons.find(s => s.year === season);
+
+    // participantId & trainerId
+
+    let trainers = currSeason.trainers.filter(t => t.trainerId === id);
+    console.log(trainers);
+
+    let players = [];
+
+    for (let t of trainers) {
+        console.log(t);
+        console.log(t.participantId);
+
+
+        // for(let t of trainers)
+        let player = participants.find(p => {
+
+            return p.id === t.participantId
+
+        });
+        if (player) {
+            players.push(player);
+
+        }
+    }
+    console.log(players);
+
+
+    return players;
+
+}
 
 
 
