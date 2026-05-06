@@ -40,8 +40,10 @@ function getDisciplineByIdAndSeason(id, season) {
 }
 
 
+
+// Total score av Trainer 5's deltagare varje season: 
 for (let i = 0; i < seasons.length; i++) {
-    console.log("total:", getScoreOfTrainerBySeason(5, i));
+    console.log(`total season ${i}:`, getScoreOfTrainerBySeason(5, i));
 }
 
 
@@ -55,7 +57,6 @@ function getScoreOfTrainerBySeason(trainerId, season) {
 
     // Går igenom varje player som har trainern
     for (let p of players) {
-        console.log(p);
         totalScore += getTotalScore(p, season)
     }
     console.log(totalScore)
@@ -93,6 +94,15 @@ function getPlayersWithTrainer(id, season) {
 }
 
 
+
+function getScoresOf(trainerId, disciplineId, season){
+    const compDays = getCompDaysBySeason(season);
+}
+
+
+
+// Helper functions
+
 // Hämtar relevant competitionDays baserat på år.
 function getCompDaysBySeason(season) {
     return seasons.filter(year => year.year == season)[0].competitionDays
@@ -103,3 +113,5 @@ function getCompDaysBySeason(season) {
 function getSeasonByYear(year) {
     return seasons.find(s => s.year === year);
 }
+
+
