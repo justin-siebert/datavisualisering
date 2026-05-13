@@ -35,21 +35,3 @@ function getSeasonByYear(year) {
 
 
 
-// Hämtar lista på alla tillfällen som disciplin x kört i season y.
-function getDisciplineByIdAndSeason(id, season) {
-    const currSeason = getSeasonByYear(season);
-
-    let disciplines = [];
-
-    const events = getCompDaysBySeason(season)
-        .map(d => d.events)
-        .filter(e => {
-            for (let ev of e) {
-                if (ev.disciplineId === id) {
-                    disciplines.push(ev);
-                    return true;
-                }
-            }
-        });
-    return disciplines;
-}
