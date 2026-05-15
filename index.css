@@ -2,7 +2,7 @@
     display: none !important;
 }
 
-main {
+#participant {
     display: flex;
     align-items: center;
     justify-content: center;
