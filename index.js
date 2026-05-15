@@ -1,23 +1,4 @@
 
-console.log(getCompDaysBySeason(0))
-
-function getEventsByParticipantIdAndSeason(participantId, year) {
-    let events = [];
-    for (let season of seasons) {
-        if (season.year === year) {
-            for (let day of season.competitionDays) {
-                for (let event of day.events) {
-                    for (let result of event.scores) {
-                        if (result.participantId === participantId) {
-                            events.push(event)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return events
-}
 
 //Helper functions:
 

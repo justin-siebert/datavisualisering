@@ -1,0 +1,79 @@
+:root {
+
+    /* colors */
+    --background: #FFFCEE;
+    --accent: #C9A84C;
+    --highlightBackground: #FFFDE7;
+    /* text */
+    --pFont: monospace;
+    --h1: 4rem;
+    --p: 1rem;
+
+    /* padding & margin*/
+    --normal: 1.5rem;
+    --small: 1rem;
+    --xSmall: 0.5rem;
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    margin: 0;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+body,
+main,
+section {
+    background-color: var(--background);
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+}
+
+
+select {
+    width: 100px;
+    border: 1.5px solid var(--accent);
+    border-radius: 5px;
+    background: none;
+    cursor: pointer;
+    padding: 4px 6px;
+    /* appearance: none;
+
+
+::picker-icon : Allows us to change the little icon indicating the select (arrow-down)
+::checkmark : allows us to alter the check icon that is next to the checked option
+:checked : A pseudo-class to select our checked option
+::picker(select) : The bounding box that surrounds/lists our options
+
+    @supports (appearance: base-select) {
+
+        &,
+        &::picker(select) {
+            appearance: base-select;
+        }
+    } */
+
+}

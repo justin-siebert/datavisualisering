@@ -1,26 +1,5 @@
 
 
-// Hämtar lista på alla tillfällen som disciplin x kört i season y.
-// function getDisciplineByIdAndSeason(id, season) {
-//     const currSeason = getSeasonByYear(season);
-
-//     let disciplines = [];
-
-//     const events = getCompDaysBySeason(season)
-//         .map(d => d.events)
-//         .filter(e => {
-//             for (let ev of e) {
-//                 if (ev.disciplineId === id) {
-//                     disciplines.push(ev);
-//                     return true;
-//                 }
-//             }
-//         });
-//     return disciplines;
-// }
-
-
-
 // Total score av Trainer 5's deltagare varje season: 
 for (let i = 0; i < seasons.length; i++) {
     console.log(`total season ${i}:`, getScoreOfTrainerBySeason(5, i));
@@ -178,5 +157,71 @@ for (let season of seasons) {
 
 
 console.log(seasonDisciplineData);
+
+
+
+// Hämtar lista på alla tillfällen som disciplin x kört i season y.
+// function getDisciplineByIdAndSeason(id, season) {
+//     const currSeason = getSeasonByYear(season);
+
+//     let disciplines = [];
+
+//     const events = getCompDaysBySeason(season)
+//         .map(d => d.events)
+//         .filter(e => {
+//             for (let ev of e) {
+//                 if (ev.disciplineId === id) {
+//                     disciplines.push(ev);
+//                     return true;
+//                 }
+//             }
+//         });
+//     return disciplines;
+// }
+
+
+disciplines.forEach(d => {
+    if (d.skillFactors.S01 < 20) return;
+    console.log(d.name, d.skillFactors.S01)
+})
+
+
+disciplines.forEach(d => {
+    if (d.skillFactors.S01 < 20) return;
+    console.log(d.name, d.skillFactors.S01)
+})
+
+
+
+
+const sumOfAllFactors = disciplines.reduce((acc, current) => {
+    let sumFactors = 0;
+    for (key in current.skillFactors) sumFactors += current.skillFactors[key];
+    return acc + sumFactors;
+}, 0)
+
+
+
+
+/*
+1.
+    acc -0
+    current - x
+    return vad funktionen räknar
+2.
+    acc - vad funktionen räknade ut
+    current - nästa element
+    return vad funktionen räknar
+3.
+    acc - vad funktionen räknade ut
+    current - nästa element
+    return vad funktionen räknar
+
+*/
+
+
+
+
+
 
 
