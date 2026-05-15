@@ -1,0 +1,91 @@
+html {
+    scroll-behavior: smooth;
+}
+
+h1 {
+    font-size: 64px;
+    margin-bottom: -16px;
+}
+
+h2 {
+    font-size: 48px;
+}
+
+h2:hover {
+    border-bottom: 2px solid var(--accent);
+    padding: 0 16px;
+    margin-bottom: -2px;
+}
+
+main {
+    padding: 0;
+}
+
+#landingPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+}
+
+#landingPage>div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    text-align: center;
+}
+
+#greek-words {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent);
+}
+
+section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+section a {
+    text-decoration: none;
+
+    position: absolute;
+    bottom: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#toTop {
+    border-radius: 0;
+    border-style: none;
+    width: fit-content;
+    color: var(--x);
+}
+
+
+smoothScroll {
+    scroll-behavior: smooth;
+}
+
+
+/* smoth scroll */

@@ -1,8 +1,10 @@
 :root {
+    /* 1 REM = 16px */
 
     /* colors */
     --background: #FFFCEE;
     --accent: #C9A84C;
+    --light: rgb(215, 215, 215);
     --highlightBackground: #FFFDE7;
     /* text */
     --pFont: monospace;
@@ -29,7 +31,7 @@ body {
     flex-direction: column;
 }
 
-main {
+.wrapper {
     margin: 0;
     padding: 2rem;
     width: 100%;
