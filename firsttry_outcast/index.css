@@ -1,9 +1,0 @@
-.displayNone {
-    display: none !important;
-}
-
-main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
