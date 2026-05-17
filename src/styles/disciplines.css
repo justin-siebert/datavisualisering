@@ -1,0 +1,62 @@
+#wrapper {
+    display: grid;
+    grid-template-rows: 1fr 6fr 1fr;
+    height: 100vh;
+    gap: 0.5rem;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+#discipline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+}
+
+#discipline-header select {
+    position: relative;
+}
+
+#discipline-header>div {
+    display: flex;
+    gap: 1rem;
+}
+
+#svg-container {
+    border: 1px solid var(--accent);
+}
+
+
+.marker {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+#match div {
+    background-color: rgb(194, 34, 34);
+}
+
+#misMatch div {
+    background-color: rgb(234, 134, 134);
+}
+
+
+
+/* #select-season {
+    margin-top: auto;
+} */
+
+
+
+footer {
+    background-color: #fffcda;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    font-size: 12px;
+}

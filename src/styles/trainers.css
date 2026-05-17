@@ -64,11 +64,3 @@ h3 {
 
 
 
-footer {
-    background-color: #fffcda;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    font-size: 12px;
-}

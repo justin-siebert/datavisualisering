@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/disciplines.css">
+</head>
+
+<body>
+    <main>
+        <a class="back-button" href="../pages/index.html">Back</a>
+        <section id="wrapper" class="wrapper">
+            <section id="discipline-header">
+                <select name="trainer" id="select-season">
+                    <option value="first">First option</option>
+                    <option value="second">Second option</option>
+                    <option value="third">Third option</option>
+                </select>
+                <h2>Discipline matters?</h2>
+
+                <div>
+                    <div id="match">
+                        <div class="marker"></div>
+                        <span>Trainer match discipline</span>
+                    </div>
+                    <div id="misMatch">
+                        <div class="marker"></div>
+                        <span>Mismatch</span>
+
+                    </div>
+                </div>
+            </section>
+            <section id="svg-container"></section>
+            <footer id="discipline-footer">
+                <p>
+                    Each group is a discipline. Within each group, all trainers which had participants in spceific
+                    discipline in chosen season. Red bar = trainer’s own discipline.
+                </p>
+                <p>Multiple can have the same main discipline</p>
+            </footer>
+        </section>
+
+    </main>
+    <script src="../data/dataset.v2.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/disciplines.js"></script>
+    <script src="../js/d3.v7.min.js"></script>
+</body>
+
+</html>

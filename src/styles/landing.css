@@ -17,6 +17,10 @@ h2:hover {
     margin-bottom: -2px;
 }
 
+H1 span {
+    color: var(--accent);
+}
+
 main {
     padding: 0;
 }
@@ -37,11 +41,16 @@ main {
     text-align: center;
 }
 
+#landingPage p {
+    font-weight: var(--fw-light);
+}
+
 #greek-words {
     display: flex;
     gap: 20px;
     align-items: center;
     justify-content: center;
+    font-weight: var(--fw-light);
 }
 
 .circle {
@@ -60,11 +69,9 @@ section {
     position: relative;
 }
 
-section a {
-    text-decoration: none;
-
+/* .sectionNavBtn */
+.sectionNavBtn {
     position: absolute;
-    bottom: 48px;
     border-radius: 50%;
     border: 1px solid var(--accent);
     width: 36px;
@@ -72,7 +79,21 @@ section a {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Font-Awesome";
+}
 
+.nav-down {
+    bottom: 48px;
+}
+
+.nav-up {
+    top: 48px;
+    transform: rotate(180deg);
+}
+
+
+section a:hover {
+    cursor: pointer;
 }
 
 #toTop {
@@ -82,10 +103,19 @@ section a {
     color: var(--x);
 }
 
+#toTop:hover {
+    color: var(--accent);
+}
 
 smoothScroll {
     scroll-behavior: smooth;
 }
 
+#rings {
+    position: absolute;
+    z-index: 0;
+    display: block;
+    width: 80%;
+}
 
 /* smoth scroll */
