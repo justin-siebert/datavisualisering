@@ -81,11 +81,8 @@ for (let s of scoreData) {
 
 }
 // Lista över Average score  
-console.log(scoreData.filter(d => !isNaN(d.averageScore))
-    .map(d => d.averageScore).sort((a, b) => a - b));
-
-
-
+// console.log(scoreData.filter(d => !isNaN(d.averageScore))
+//     .map(d => d.averageScore).sort((a, b) => a - b));
 
 
 function getScoresOf(trainerId, disciplineId, season) {
@@ -112,32 +109,36 @@ function getScoresOf(trainerId, disciplineId, season) {
         ? total / players.length
         : null
 
-
     return { trainerId, disciplineId, scores, avg }
 }
 
-let seasonDisciplineData = {}
 
-for (let season of seasons) {
-    seasonDisciplineData[season.year] = {};
-    console.log(`\n=== SEASON ${season.year} ===`)
+function getSeasonDisciplineData() {
+    let data = {};
 
-    for (let discipline of disciplines) {
-        seasonDisciplineData[season.year][discipline.id] = [];
-        console.log(`  --- Discipline ${discipline.id} ---`)
+    for (let season of seasons) {
+        data[season.year] = {};
+        console.log(`\n=== SEASON ${season.year} ===`)
 
-        for (let trainer of trainers) {
-            const result = getScoresOf(trainer.id, discipline.id, season.year);
+        for (let discipline of disciplines) {
+            data[season.year][discipline.id] = [];
+            console.log(`--- Discipline ${discipline.id} ---`)
 
-            seasonDisciplineData[season.year][discipline.id].push({
-                trainerId: trainer.id,
-                specialized: trainer.disciplineId === discipline.id,
-                avg: result.avg !== null ? Math.round(result.avg) : 0
-            })
+            for (let trainer of trainers) {
+                const result = getScoresOf(trainer.id, discipline.id, season.year);
+
+                data[season.year][discipline.id].push({
+                    trainerId: trainer.id,
+                    specialized: trainer.disciplineId === discipline.id,
+                    avg: result.avg !== null ? Math.round(result.avg) : 0
+                })
+            }
         }
     }
+    return data;
 }
-console.log(seasonDisciplineData);
+
+console.log(getSeasonDisciplineData());
 
 
 
