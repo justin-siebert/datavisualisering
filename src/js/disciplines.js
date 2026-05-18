@@ -44,72 +44,62 @@ function getTotalScore(player, season) {
     return { total: allScores, eventScores: eventScores };
 }
 
+// let scoreData = [];
+
+// for (let i = 0; i < seasons.length; i++) {
+//     for (let j = 1; j < seasons.length; j++) {
+
+//         const trainerId = j;
+//         const trainerData = getScoreOfTrainerBySeason(trainerId, i);
+//         scoreData.push(trainerData);
+//     }
+// }
+
+// scoreData.sort((a, b) => {
+//     if (a.season !== b.season) return a.season - b.season;
+//     return b.totalScore - a.totalScore;
+// });
 
 
-
-
-let scoreData = [];
-
-for (let i = 0; i < seasons.length; i++) {
-    for (let j = 1; j < seasons.length; j++) {
-
-        const trainerId = j;
-        const trainerData = getScoreOfTrainerBySeason(trainerId, i);
-        scoreData.push(trainerData);
-    }
-}
-
-scoreData.sort((a, b) => {
-    if (a.season !== b.season) return a.season - b.season;
-    return b.totalScore - a.totalScore;
-});
-
-console.log("SCOREDATA: ", scoreData);
-
-console.log(`participants with trainer ${scoreData[0].trainerId}:`, scoreData[0].participants);
-
-const averageScoresS1Trainer2 = scoreData.filter(s => s.trainerId === 2).map(d => d.averageScore);
-
-console.log(averageScoresS1Trainer2);
-
-let biggestAvg = 0;
-
-
-for (let s of scoreData) {
-
-    if (s.averageScore > biggestAvg) biggestAvg = s.averageScore;
-
-}
-// Lista över Average score  
-// console.log(scoreData.filter(d => !isNaN(d.averageScore))
-//     .map(d => d.averageScore).sort((a, b) => a - b));
-
-
-function getScoresOf(trainerId, disciplineId, season) {
+function getTotalAvgScoreOf(trainerId, disciplineId, season) {
     const players = getPlayersWithTrainer(trainerId, season)
     const compDays = getCompDaysBySeason(season)
 
-    let scores = []
+    let playerAvgs = []
 
     for (let player of players) {
+        let playerTotal = 0
+        let playedCount = 0
+
         for (let day of compDays) {
             for (let event of day.events) {
                 if (event.disciplineId === disciplineId) {
                     const s = event.scores.find(s => s.participantId === player.id)
-                    if (s) scores.push(s.score)
+                    if (s) {
+                        playerTotal += Math.round(s.score);
+                        playedCount++;
+                    }
                 }
             }
         }
+        if (playedCount > 0) {
+            const playerAvg = playerTotal / playedCount;
+            playerAvgs.push(Math.round(playerAvg));
+            console.log(`P${player.id}: total ${playerTotal}, count ${playedCount}, avg ${Math.round(playerAvg)}`)
+        }
     }
-    let total = 0
-    for (let score of scores) {
-        total += score
+    let total = 0;
+    for (let avg of playerAvgs) {
+        total += avg;
     }
-    const avg = players.length > 0
-        ? total / players.length
+    console.log(total);
+
+    const avg = playerAvgs.length > 0
+        ? total / playerAvgs.length
         : null
 
-    return { trainerId, disciplineId, scores, avg }
+    Math.round(avg);
+    return { trainerId, disciplineId, avg }
 }
 
 
@@ -125,7 +115,7 @@ function getSeasonDisciplineData() {
             console.log(`--- Discipline ${discipline.id} ---`)
 
             for (let trainer of trainers) {
-                const result = getScoresOf(trainer.id, discipline.id, season.year);
+                const result = getTotalAvgScoreOf(trainer.id, discipline.id, season.year);
 
                 data[season.year][discipline.id].push({
                     trainerId: trainer.id,
@@ -137,29 +127,8 @@ function getSeasonDisciplineData() {
     }
     return data;
 }
-
 console.log(getSeasonDisciplineData());
 
-
-
-// Hämtar lista på alla tillfällen som disciplin x kört i season y.
-// function getDisciplineByIdAndSeason(id, season) {
-//     const currSeason = getSeasonByYear(season);
-
-//     let disciplines = [];
-
-//     const events = getCompDaysBySeason(season)
-//         .map(d => d.events)
-//         .filter(e => {
-//             for (let ev of e) {
-//                 if (ev.disciplineId === id) {
-//                     disciplines.push(ev);
-//                     return true;
-//                 }
-//             }
-//         });
-//     return disciplines;
-// }
 
 
 
