@@ -46,20 +46,6 @@ function getTotalScore(player, season) {
 
 
 
-function getPlayersWithTrainer(id, season) {
-    const currSeason = getSeasonByYear(season);
-
-    let trainers = currSeason.trainers.filter(t => t.trainerId === id);
-    let players = [];
-
-    for (let t of trainers) {
-        let player = participants.find(p => p.id === t.participantId);
-        players.push(player);
-    }
-    return players;
-}
-
-
 
 
 let scoreData = [];
@@ -105,6 +91,7 @@ console.log(scoreData.filter(d => !isNaN(d.averageScore))
 function getScoresOf(trainerId, disciplineId, season) {
     const players = getPlayersWithTrainer(trainerId, season)
     const compDays = getCompDaysBySeason(season)
+
     let scores = []
 
     for (let player of players) {
@@ -141,21 +128,15 @@ for (let season of seasons) {
 
         for (let trainer of trainers) {
             const result = getScoresOf(trainer.id, discipline.id, season.year);
-            if (result.avg !== null) {
-                seasonDisciplineData[season.year][discipline.id].push({
-                    trainerId: trainer.id,
-                    avg: Math.round(result.avg)
-                })
-            }
-            console.log(`    T${trainer.id}: ${Math.round(result.avg)}`)
+
+            seasonDisciplineData[season.year][discipline.id].push({
+                trainerId: trainer.id,
+                specialized: trainer.disciplineId === discipline.id,
+                avg: result.avg !== null ? Math.round(result.avg) : 0
+            })
         }
     }
 }
-
-
-// FINNS EN SEASON DÄR TRAINER EJ HAR PARTICIPANTS ALLS -> filtrera bort den för att få korrekt.
-
-
 console.log(seasonDisciplineData);
 
 
@@ -180,44 +161,11 @@ console.log(seasonDisciplineData);
 // }
 
 
-disciplines.forEach(d => {
-    if (d.skillFactors.S01 < 20) return;
-    console.log(d.name, d.skillFactors.S01)
-})
-
-
-disciplines.forEach(d => {
-    if (d.skillFactors.S01 < 20) return;
-    console.log(d.name, d.skillFactors.S01)
-})
 
 
 
 
-const sumOfAllFactors = disciplines.reduce((acc, current) => {
-    let sumFactors = 0;
-    for (key in current.skillFactors) sumFactors += current.skillFactors[key];
-    return acc + sumFactors;
-}, 0)
 
-
-
-
-/*
-1.
-    acc -0
-    current - x
-    return vad funktionen räknar
-2.
-    acc - vad funktionen räknade ut
-    current - nästa element
-    return vad funktionen räknar
-3.
-    acc - vad funktionen räknade ut
-    current - nästa element
-    return vad funktionen räknar
-
-*/
 
 
 

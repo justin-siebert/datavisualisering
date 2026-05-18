@@ -15,4 +15,15 @@ function getSeasonByYear(year) {
 // let getSeasonByYear = (year) =>  seasons.find(s => s.year === year);
 
 
+function getPlayersWithTrainer(id, season) {
+    const currSeason = getSeasonByYear(season);
 
+    let trainers = currSeason.trainers.filter(t => t.trainerId === id);
+    let players = [];
+
+    for (let t of trainers) {
+        let player = participants.find(p => p.id === t.participantId);
+        players.push(player);
+    }
+    return players;
+}
